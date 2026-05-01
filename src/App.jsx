@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import Splash from "./Splash";
 
 // ─── DATA ───
 const TIMELINE = [
@@ -99,10 +100,15 @@ function saveData(statuses, notes) {
 }
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(!sessionStorage.getItem("splash-seen"));
   const [tab, setTab] = useState("timeline");
   const [statuses, setStatuses] = useState({});
   const [notes, setNotes] = useState({});
   const [expandedId, setExpandedId] = useState(null);
+
+  if (showSplash) {
+    return <Splash onEnter={() => { sessionStorage.setItem("splash-seen", "1"); setShowSplash(false); }} />;
+  }
 
   useEffect(() => {
     const d = loadData();
