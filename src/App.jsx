@@ -106,15 +106,15 @@ export default function App() {
   const [notes, setNotes] = useState({});
   const [expandedId, setExpandedId] = useState(null);
 
-  if (showSplash) {
-    return <Splash onEnter={() => { sessionStorage.setItem("splash-seen", "1"); setShowSplash(false); }} />;
-  }
-
   useEffect(() => {
     const d = loadData();
     setStatuses(d.statuses);
     setNotes(d.notes);
   }, []);
+
+  if (showSplash) {
+    return <Splash onEnter={() => { sessionStorage.setItem("splash-seen", "1"); setShowSplash(false); }} />;
+  }
 
   const cycle = (id) => {
     const next = NEXT[statuses[id] || "not_started"];
